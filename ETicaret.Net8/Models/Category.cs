@@ -12,6 +12,7 @@ namespace ETicaret.Net8.Models
         [MaxLength(50)]
         public string Name { get; set; }
         [DisplayName("Görüntülenme Sayısı")]
+        [Range(1,100,ErrorMessage ="Görüntülenme Sayısı 1-100 Arasında Olmalı!")]
         public int DisplayOrder { get; set; }
     }
 }

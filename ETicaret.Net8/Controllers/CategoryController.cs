@@ -26,6 +26,11 @@ namespace ETicaret.Net8.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Category category)
         {
+            if(category.Name == category.DisplayOrder.ToString())       //Eğer ki Görüntülenme sayısı ile kategori adı aynı ise 
+            {
+                ModelState.AddModelError("Name", "Kategori Adı ile Görüntülenme Sayısı Aynı Olamaz!!!");
+            }
+
             if (ModelState.IsValid)
             {
                 if (category != null)
