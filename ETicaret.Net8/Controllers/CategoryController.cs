@@ -35,9 +35,18 @@ namespace ETicaret.Net8.Controllers
             {
                 if (category != null)
                 {
-                    await dbContext.Categories.AddAsync(category);
-                    await dbContext.SaveChangesAsync();
-                    return RedirectToAction("Index", "Category");
+                    var getQuery = await dbContext.Categories.Where(x => x.DisplayOrder == category.DisplayOrder).FirstOrDefaultAsync();
+                    if (getQuery.DisplayOrder==category.DisplayOrder){
+                        ModelState.AddModelError("", "tekrardan eklemeyemezsin displayorder sıralamasını zaten var");
+                    }
+                    else
+                    {
+                        await dbContext.Categories.AddAsync(category);
+                        await dbContext.SaveChangesAsync();
+                        TempData["basarili"] = category.Name + " " + "Başarıyla Eklendi";
+                        return RedirectToAction("Index", "Category");
+                    }
+                   
                 }
             }
             else
@@ -48,6 +57,68 @@ namespace ETicaret.Net8.Controllers
 
             return View();
            
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        { 
+            if(id==null || id == 0)
+            {
+                return NotFound();
+            }
+            // vargetById = await dbContext.Categories.Where(x => x.Id == id).FirstOrDefaultAsync();    1.Metod
+            // var getById = await dbContext.Categories.FindAsync(id);                                  2.Metod
+            var getById = await dbContext.Categories.FirstOrDefaultAsync(x=>x.Id==id);
+            return View(getById);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Category category)
+        {
+            if (category.Name == category.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("Name","Kategori Adı ile Görüntülenme Sırası Aynı Olamaz");
+            }
+            if (ModelState.IsValid)
+            {
+                if(category != null)
+                {
+                    
+                    dbContext.Update(category);
+                    await dbContext.SaveChangesAsync();
+                    TempData["basarili"] = category.Name + " " + "Başarıyla Güncellendi";
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Bir Hata Oluştu");
+                
+            }
+            return View(category);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if(id==null || id == 0)
+            {
+                return BadRequest();
+            }
+            var getByWillDeleteId = await dbContext.Categories.FindAsync(id);
+            return View(getByWillDeleteId);
+        }
+        [HttpPost]
+        public IActionResult Delete(Category category)
+        {
+            if(category != null)
+            {
+                TempData["basarili"] = "Başarıyla Kaldırıldı";
+                dbContext.Remove(category);
+                dbContext.SaveChanges();
+               
+                return RedirectToAction("Index");
+            }
+            return View(category);
         }
     }
 }

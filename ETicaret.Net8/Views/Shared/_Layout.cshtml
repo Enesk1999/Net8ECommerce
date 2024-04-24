@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/ETicaret.Net8.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  text-light  bg-dark border-bottom box-shadow pb-3 mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand text-light mx-2" asp-area="" asp-controller="Home" asp-action="Index"><i class="heading bi bi-cart4 mx-2"></i> E-SepetToptanSatış.com</a>
+                <a class="navbar-brand text-light mx-2" asp-area="" asp-controller="Home" asp-action="Index"><i class="heading bi bi-cart4 mx-1"></i> E-SepetToptanSatış.com</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,10 +23,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">ANASAYFA</a>
+                            <a class="nav-link mx-3" asp-area="" asp-controller="Home" asp-action="Index">ANASAYFA</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Index">KATEGORİLER</a>
+                            <a class="nav-link mx-3" asp-area="" asp-controller="Category" asp-action="Index">KATEGORİLER</a>
                         </li>
                     </ul>
                 </div>
@@ -33,6 +35,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <partial name="Toastr"></partial>
             @RenderBody()
         </main>
     </div>
