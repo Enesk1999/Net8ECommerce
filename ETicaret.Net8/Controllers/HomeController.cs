@@ -15,6 +15,7 @@ namespace ETicaret.Net8.Controllers
 
         public IActionResult Index()
         {
+            var h = "dd";
             return View();
         }
 
