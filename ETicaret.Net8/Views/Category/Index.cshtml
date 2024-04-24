@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Category>
+
+<div class="container py-4">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-dark fw-bold fs-1">Kategori Listesi</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-outline-dark py-3" asp-area="" asp-controller="Category" asp-action="Create"><i class="bi bi-plus-circle"></i> Yeni Kategori Ekle</a>
+        </div>
+    </div>
+</div>
+ 
+<table class="table table-bordered table-striped py-4">
+   <thead>
+       <tr>
+           <th>Id</th>
+           <th>Name</th>
+           <th>DisplayOrder</th>
+       </tr>
+   </thead>
+   <tbody>
+        @foreach(var item in Model.OrderBy(x=>x.DisplayOrder))
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.DisplayOrder</td>
+            </tr>
+        }
+    </tbody>
+</table>
