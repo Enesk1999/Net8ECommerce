@@ -6,7 +6,7 @@
             <h2 class="text-dark fw-bold fs-1">Kategori Listesi</h2>
         </div>
         <div class="col-6 text-end">
-            <a class="btn btn-outline-dark py-3" asp-area="" asp-controller="Category" asp-action="Create"><i class="bi bi-plus-circle"></i> Yeni Kategori Ekle</a>
+            <a class="btn btn-outline-dark py-3" asp-area="Admin" asp-controller="Category" asp-action="Create"><i class="bi bi-plus-circle"></i> Yeni Kategori Ekle</a>
         </div>
     </div>
 </div>
@@ -30,8 +30,8 @@
                 <td>@item.DisplayOrder</td>
                 <td>
                     <div class="w-75 btn-group role=group">
-                        <a class="btn btn-outline-primary mx-3" asp-area="" asp-controller="Category" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square mx-2"></i>Kategori Düzenle</a>
-                        <a class="btn btn-outline-danger mx-3" asp-area="" asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash mx-2"></i>Kategori Kaldır</a>
+                        <a class="btn btn-outline-dark mx-3" asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square mx-2"></i>Kategori Düzenle</a>
+                        <a class="btn btn-outline-danger mx-3" asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash mx-2"></i>Kategori Kaldır</a>
 
                     </div>
                 </td>
