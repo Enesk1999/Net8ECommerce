@@ -1,4 +1,5 @@
-﻿using ETicaret.Net8.Data;
+﻿using ETicaret.Data.Repos;
+using ETicaret.Net8.Data;
 using ETicaret.Net8.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,15 +8,16 @@ namespace ETicaret.Net8.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext dbContext;
-        public CategoryController(ApplicationDbContext application)
+        //private readonly ApplicationDbContext dbContext; UnitofWorke geçiş
+        private readonly ICategoryRepository categoryRepository;
+        public CategoryController(ICategoryRepository cr)
         {
-            dbContext = application;
+            categoryRepository = cr;
         }
         public async Task<IActionResult> Index()
         {
-            List<Category> categories = await dbContext.Categories.ToListAsync();
-            return View(categories);
+            var getAll= await categoryRepository.GetAllAsync();
+            return View(getAll);
         }
 
         [HttpGet]
@@ -36,10 +38,10 @@ namespace ETicaret.Net8.Controllers
                 if (category != null)
                 {
                  
-                        await dbContext.Categories.AddAsync(category);
-                        await dbContext.SaveChangesAsync();
-                        TempData["basarili"] = category.Name + " " + "Başarıyla Eklendi";
-                        return RedirectToAction("Index", "Category");
+                    await categoryRepository.AddAsync(category);
+                    categoryRepository.Save();
+                    TempData["basarili"] = category.Name + " " + "Başarıyla Eklendi";
+                    return RedirectToAction("Index", "Category");
                 }
             }
             else
@@ -60,7 +62,7 @@ namespace ETicaret.Net8.Controllers
             }
             // vargetById = await dbContext.Categories.Where(x => x.Id == id).FirstOrDefaultAsync();    1.Metod
             // var getById = await dbContext.Categories.FindAsync(id);                                  2.Metod
-            var getById = await dbContext.Categories.FirstOrDefaultAsync(x=>x.Id==id);
+            var getById = await categoryRepository.GetAsync(x=>x.Id==id);
             return View(getById);
         }
 
@@ -76,8 +78,8 @@ namespace ETicaret.Net8.Controllers
                 if(category != null)
                 {
                     
-                    dbContext.Update(category);
-                    await dbContext.SaveChangesAsync();
+                    categoryRepository.Update(category);
+                    categoryRepository.Save();
                     TempData["basarili"] = category.Name + " " + "Başarıyla Güncellendi";
                     return RedirectToAction("Index");
                 }
@@ -97,7 +99,7 @@ namespace ETicaret.Net8.Controllers
             {
                 return BadRequest();
             }
-            var getByWillDeleteId = await dbContext.Categories.FindAsync(id);
+            var getByWillDeleteId = await categoryRepository.GetAsync(x=>x.Id==id);
             return View(getByWillDeleteId);
         }
         [HttpPost]
@@ -106,8 +108,8 @@ namespace ETicaret.Net8.Controllers
             if(category != null)
             {
                 TempData["basarili"] = "Başarıyla Kaldırıldı";
-                dbContext.Remove(category);
-                dbContext.SaveChanges();
+                categoryRepository.Remove(category);
+                categoryRepository.Save();
                
                 return RedirectToAction("Index");
             }
