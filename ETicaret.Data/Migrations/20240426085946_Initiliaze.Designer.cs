@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ETicaret.Net8.Migrations
+namespace ETicaret.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240423113037_Updated_CategoriesSeedData")]
-    partial class Updated_CategoriesSeedData
+    [Migration("20240426085946_Initiliaze")]
+    partial class Initiliaze
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,8 @@ namespace ETicaret.Net8.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
