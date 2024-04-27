@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ETicaret.Model.Models;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ETicaret.Net8.Models
@@ -14,5 +15,8 @@ namespace ETicaret.Net8.Models
         [DisplayName("Görüntülenme Sayısı")]
         [Range(1,100,ErrorMessage ="Görüntülenme Sayısı 1-100 Arasında Olmalı!")]
         public int DisplayOrder { get; set; }
+
+        //public int ProductId { get; set; }
+        //public virtual ICollection<Product> Products  { get; set; }     //N to n relitionships
     }
 }

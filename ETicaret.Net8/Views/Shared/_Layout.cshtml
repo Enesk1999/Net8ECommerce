@@ -25,8 +25,21 @@
                         <li class="nav-item ss">
                             <a class="nav-link mx-3" asp-area="Customer" asp-controller="Home" asp-action="Index">ANASAYFA</a>
                         </li>
-                        <li class="nav-item ss">
-                            <a class="nav-link mx-3" asp-area="Admin" asp-controller="Category" asp-action="Index">KATEGORİLER</a>
+                        
+                        <li>
+                            <div class="btn-group bg-primary">
+                                <button class="btn btn-light text-light bg-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                    İÇERİK YÖNETİMİ
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item ">
+                                        <a class="nav-link mx-3 text-primary" asp-area="Admin" asp-controller="Category" asp-action="Index">KATEGORİLER</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link mx-3 text-primary" asp-area="Admin" asp-controller="Product" asp-action="Index">ÜRÜNLER</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -40,7 +53,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted bg-dark">
+    <footer class="border-top footer text-muted bg-primary">
         <div class="container text-center text-light pb-3">
             <i class="bi bi-basket3"></i>  E-SepetToptanSatış.com Ticaret Hizmetiyle Hazırlanmıştır.
         </div>
