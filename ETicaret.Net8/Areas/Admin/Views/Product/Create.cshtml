@@ -1,63 +1,64 @@
 ﻿@model Product
 
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="border p-3 mt-4">
         <div class="row pb-2">
             <h2 class="text-dark">Yeni Ürün Ekle</h2>
             <hr />
         </div>
         <div asp-validation-summary="All"></div>
-        <div class="mb-3">
-            <label asp-for="Title" class="form-label"></label>
-            <input type="text" class="form-control" asp-for="Title" />
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control border-0 shadow" asp-for="Title" />
+            <label asp-for="Title" class="form-label ms-2"></label>
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="Author" class="form-label"></label>
-            <input type="text" class="form-control" asp-for="Author" />
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control border-0 shadow" asp-for="Author" />
+            <label asp-for="Author" class="form-label ms-2"></label>
             <span asp-validation-for="Author" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="ISBN" class="form-label"></label>
-            <input type="text" class="form-control" asp-for="ISBN" />
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control border-0 shadow" asp-for="ISBN" />
+            <label asp-for="ISBN" class="form-label ms-2"></label>
             <span asp-validation-for="ISBN" class="text-danger"></span>
         </div>
-        <div class="mb-3">
+        <div class="form-floating mb-3">
+            <textarea class="form-control border-0 shadow" asp-for="Description"></textarea>
             <label asp-for="Description" class="form-label"></label>
-            <textarea class="form-control" asp-for="Description"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="ListPrice" class="form-label"></label>
-            <input type="text" class="form-control" asp-for="ListPrice" />
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control border-0 shadow" asp-for="ListPrice" />
+            <label asp-for="ListPrice" class="form-label ms-2"></label>
             <span asp-validation-for="ListPrice" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="Price" class="form-label"></label>
-            <input type="text" class="form-control" asp-for="Price" />
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control border-0 shadow" asp-for="Price" />
+            <label asp-for="Price" class="form-label ms-2"></label>
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="Price50" class="form-label"></label>
-            <input type="text" class="form-control" asp-for="Price50" />
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control border-0 shadow" asp-for="Price50" />
+            <label asp-for="Price50" class="form-label ms-2"></label>
             <span asp-validation-for="Price50" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="Price100" class="form-label"></label>
-            <input type="text" class="form-control" asp-for="Price100" />
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control border-0 shadow" asp-for="Price100" />
+            <label asp-for="Price100" class="form-label ms-2"></label>
             <span asp-validation-for="Price100" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="CategoryId" class="form-label"></label>
-            <select class="form-select" asp-for="CategoryId" asp-items="@ViewBag.CategoryId">
-                <option value="">Lütfen Kategori Seçiniz</option>
+        <div class="form-floating mb-3">
+            <select class="form-select border-0 shadow my-2" asp-for="CategoryId" asp-items="@ViewBag.CategoryId">
+                <option disabled>Lütfen Kategori Seçiniz</option>
             </select>
+            <label asp-for="CategoryId" class="form-label ms-2"></label>
+        
             
         </div>
-        <div class="mb-3">
-            <label asp-for="ImageUrl" class="form-label"></label>
-            <input type="text" class="form-control" asp-for="ImageUrl" />
+        <div class="form-floating mb-3">
+            <input type="file" class="form-control border-0 shadow" asp-for="ImageUrl" />
+            <label asp-for="ImageUrl" class="form-label ms-2"></label>
             <span asp-validation-for="ImageUrl" class="text-danger"></span>
         </div>
         <div class="row">
