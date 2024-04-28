@@ -31,4 +31,10 @@
     <Folder Include="wwwroot\images\products\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\template\js\all.min.js" />
+    <None Include="wwwroot\template\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\template\js\jquery-3.4.1.min.js" />
+  </ItemGroup>
+
 </Project>

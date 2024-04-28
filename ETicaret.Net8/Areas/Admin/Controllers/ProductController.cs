@@ -106,5 +106,10 @@ namespace ETicaret.Net8.Areas.Admin.Controllers
             var getcall = await productRepository.GetAllProduct();
             return Json(new {data = getcall});
         }
+
+        public IActionResult Temp()
+        {
+            return View();
+        }
     }
 }
