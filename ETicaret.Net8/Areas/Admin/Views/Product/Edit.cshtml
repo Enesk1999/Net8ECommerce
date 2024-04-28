@@ -1,33 +1,40 @@
 ﻿@model Product
 
+<div class="row">
+    <div class="col-md-8">
+        <form method="post" enctype="multipart/form-data">
+            <div class="border p-3 mt-4">
+                <div class="row pb-2">
+                    <h2 class="text-dark">Ürün Güncelle</h2>
+                    <hr />
+                </div>
+                <div asp-validation-summary="All"></div>
 
-<form method="post" enctype="multipart/form-data">
-    <div class="border p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-dark">Yeni Ürün Ekle</h2>
-            <hr />
-        </div>
-        <div asp-validation-summary="All"></div>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control border-0 shadow" asp-for="Title" />
-            <label asp-for="Title" class="form-label ms-2"></label>
-            <span asp-validation-for="Title" class="text-danger"></span>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control border-0 shadow" asp-for="Author" />
-            <label asp-for="Author" class="form-label ms-2"></label>
-            <span asp-validation-for="Author" class="text-danger"></span>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control border-0 shadow" asp-for="ISBN" />
-            <label asp-for="ISBN" class="form-label ms-2"></label>
-            <span asp-validation-for="ISBN" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Description" class="form-label ms-2 "></label>
-            <textarea class="form-control border-0 shadow" asp-for="Description"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ImageUrl" />
+
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control border-0 shadow" asp-for="Title" />
+                    <label asp-for="Title" class="form-label ms-2"></label>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control border-0 shadow" asp-for="Author" />
+                    <label asp-for="Author" class="form-label ms-2"></label>
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control border-0 shadow" asp-for="ISBN" />
+                    <label asp-for="ISBN" class="form-label ms-2"></label>
+                    <span asp-validation-for="ISBN" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label ms-2 "></label>
+                    <textarea class="form-control border-0 shadow" asp-for="Description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div cla
         <div class="form-floating mb-3">
             <input type="text" class="form-control border-0 shadow" asp-for="ListPrice" />
             <label asp-for="ListPrice" class="form-label ms-2"></label>
@@ -53,8 +60,8 @@
                 <option disabled>Lütfen Kategori Seçiniz</option>
             </select>
             <label asp-for="CategoryId" class="form-label ms-2"></label>
-        
-            
+
+
         </div>
         <div class="form-floating mb-3">
             <input type="file" name="fileUrl" class="form-control border-0 shadow" asp-for="ImageUrl" />
@@ -63,7 +70,7 @@
         </div>
         <div class="row">
             <div class="col-md-3 px-3">
-                <button class="btn btn-outline-dark px-4 mt-3" type="submit">Yeni Ürün Ekle</button>
+                <button class="btn btn-outline-dark px-4 mt-3" type="submit">Ürün Güncelle</button>
             </div>
             <div class="col-md-3 px-3">
                 <a class="btn btn-outline-secondary px-4 mt-3 mx-3" asp-area="Admin" asp-controller="Product" asp-action="Index">Anasayfa Geri Dön</a>
@@ -72,9 +79,21 @@
 
 
     </div>
-</form>
+        </form>
+    </div>
+    <div class="col-md-4 py-5">
+        <div class="border-3 border-dark shadow">
+            <img style="object-fit:cover;" src="@Model.ImageUrl" alt="Alternate Text" width="400" height="400" />
+        </div>
+      
+    </div>
+</div>
 
-@section Scripts{
+
+
+
+
+@section Scripts {
     <script>
         tinymce.init({
             selector: 'textarea',

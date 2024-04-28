@@ -13,7 +13,7 @@
     </div>
     @if(Model !=null && Model.Any())
     {
-        <table class="table table-hover table-bordered table-striped py-4">
+        <table class="table table-hover table-bordered table-striped py-4" width="%100">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -23,8 +23,7 @@
                     <th>Author</th>
                     <th>ListPrice</th>
                     <th>Price</th>
-                    <th>Price50</th>
-                    <th>Price100</th>
+                    
                     <th>CategoryId</th>
                     <th>ImageUrl</th>
                 </tr>
@@ -40,10 +39,11 @@
                         <td>@item.Author</td>
                         <td>@item.ListPrice</td>
                         <td>@item.Price</td>
-                        <td>@item.Price50</td>
-                        <td>@item.Price100</td>
+                        
                         <td></td>
-                        <td>@item.ImageUrl</td>
+                        <td>
+                            <img style="object-fit:cover;" src="@item.ImageUrl" width="100" height="70" alt="Alternate Text" />
+                        </td>
                         <td>
                             <div class="w-75 btn-group role=group">
                                 <a class="btn btn-outline-dark mx-3" asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square mx-2"></i>Ürünü Düzenle</a>

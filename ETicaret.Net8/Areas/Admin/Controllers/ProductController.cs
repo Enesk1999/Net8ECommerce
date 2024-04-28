@@ -11,10 +11,12 @@ namespace ETicaret.Net8.Areas.Admin.Controllers
     {
         private readonly IProductRepository productRepository;
         private readonly ICategoryRepository categoryRepository;
-        public ProductController(IProductRepository product, ICategoryRepository categoryRepository)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public ProductController(IProductRepository product, ICategoryRepository categoryRepository,IWebHostEnvironment hostEnvironment)
         {
             productRepository = product;
             this.categoryRepository = categoryRepository;
+            webHostEnvironment = hostEnvironment;
 
         }
         public async Task<IActionResult> Index()
@@ -28,12 +30,62 @@ namespace ETicaret.Net8.Areas.Admin.Controllers
             ViewBag.CategoryId = new SelectList(await categoryRepository.GetAllAsync(), "Id", "Name");
             return View();
         }
-        public async Task<IActionResult> Create(Product product)
+        [HttpPost]
+        public async Task<IActionResult> Create(Product product, IFormFile? fileUrl)
         {
             ViewBag.CategoryId = new SelectList(await categoryRepository.GetAllAsync(), "Id", "Name");
             if (ModelState.IsValid)
             {
+                //Resim Dosyasının yolunu belirleyip, isimlendirip ve kaydetmek
+                string wwwRootPath = webHostEnvironment.WebRootPath;
+                if(fileUrl != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(fileUrl.FileName);      //16 karakterlik bir guid oluşturup eklenilen resim dosyasını adına atanıyor
+                    string productPath = Path.Combine(wwwRootPath, @"images\products");                      //Resim yolu seçiliyor (kaydedileceği yer)
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        fileUrl.CopyTo(fileStream);
+                    }
+                    product.ImageUrl = @"\images\products\" + fileName;
+                }
+
                 await productRepository.AddAsync(product);
+                productRepository.Save();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Bir hata oluştu");
+                return View(product);
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var FindProduct = await productRepository.GetAsync(x=>x.Id ==id);
+            ViewBag.CategoryId = new SelectList(await categoryRepository.GetAllAsync(), "Id", "Name");
+            return View(FindProduct);
+        }
+        public async Task<IActionResult> Edit(Product product, IFormFile? fileUrl)
+        {
+            ViewBag.CategoryId = new SelectList(await categoryRepository.GetAllAsync(), "Id", "Name");
+            if (ModelState.IsValid)
+            {
+                //Resim Dosyasının yolunu belirleyip, isimlendirip ve kaydetmek
+                string wwwRootPath = webHostEnvironment.WebRootPath;
+                if (fileUrl != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(fileUrl.FileName);      //16 karakterlik bir guid oluşturup eklenilen resim dosyasını adına atanıyor
+                    string productPath = Path.Combine(wwwRootPath, @"images\products");                      //Resim yolu seçiliyor (kaydedileceği yer)
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        fileUrl.CopyTo(fileStream);
+                    }
+                    product.ImageUrl = @"\images\products\" + fileName;
+                }
+
+
+                productRepository.Update(product);
                 productRepository.Save();
                 return RedirectToAction("Index");
             }
