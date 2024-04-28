@@ -21,19 +21,19 @@ namespace ETicaret.Net8.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var getAllProducts = await productRepository.GetAllAsync();
+            var getAllProducts = await productRepository.GetAllProduct();
             return View(getAllProducts);
         }
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ViewBag.CategoryId = new SelectList(await categoryRepository.GetAllAsync(), "Id", "Name");
+            ViewBag.CategoryId = new SelectList( categoryRepository.GetAll(), "Id", "Name");
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(Product product, IFormFile? fileUrl)
         {
-            ViewBag.CategoryId = new SelectList(await categoryRepository.GetAllAsync(), "Id", "Name");
+            ViewBag.CategoryId = new SelectList( categoryRepository.GetAll(), "Id", "Name");
             if (ModelState.IsValid)
             {
                 //Resim Dosyasının yolunu belirleyip, isimlendirip ve kaydetmek
@@ -51,6 +51,7 @@ namespace ETicaret.Net8.Areas.Admin.Controllers
 
                 await productRepository.AddAsync(product);
                 productRepository.Save();
+                TempData["basarili"] = product.Title + " " + "başarılı bir şekilde eklendi";
                 return RedirectToAction("Index");
             }
             else
@@ -63,12 +64,12 @@ namespace ETicaret.Net8.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var FindProduct = await productRepository.GetAsync(x=>x.Id ==id);
-            ViewBag.CategoryId = new SelectList(await categoryRepository.GetAllAsync(), "Id", "Name");
+            ViewBag.CategoryId = new SelectList( categoryRepository.GetAll(), "Id", "Name");
             return View(FindProduct);
         }
         public async Task<IActionResult> Edit(Product product, IFormFile? fileUrl)
         {
-            ViewBag.CategoryId = new SelectList(await categoryRepository.GetAllAsync(), "Id", "Name");
+            ViewBag.CategoryId = new SelectList( categoryRepository.GetAll(), "Id", "Name");
             if (ModelState.IsValid)
             {
                 //Resim Dosyasının yolunu belirleyip, isimlendirip ve kaydetmek
@@ -87,6 +88,7 @@ namespace ETicaret.Net8.Areas.Admin.Controllers
 
                 productRepository.Update(product);
                 productRepository.Save();
+                TempData["basarili"] = product.Title+ " " + "başarılı bir şekilde eklendi";
                 return RedirectToAction("Index");
             }
             else
@@ -94,6 +96,15 @@ namespace ETicaret.Net8.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Bir hata oluştu");
                 return View(product);
             }
+        }
+
+        //API çağırma actionu
+        //Action adıyla çağrılabilir
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var getcall = await productRepository.GetAllProduct();
+            return Json(new {data = getcall});
         }
     }
 }

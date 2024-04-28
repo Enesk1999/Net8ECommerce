@@ -17,7 +17,7 @@ namespace ETicaret.Net8.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var getAll = await categoryRepository.GetAllAsync();
+            var getAll =  categoryRepository.GetAll();
             return View(getAll);
         }
 

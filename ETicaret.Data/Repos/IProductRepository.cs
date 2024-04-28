@@ -9,5 +9,7 @@ namespace ETicaret.Data.Repos
 {
     public interface IProductRepository: IRepository<Product>
     {
+        Task<IEnumerable<Product>> GetAllProduct();
+        
     }
 }

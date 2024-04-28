@@ -17,6 +17,7 @@ namespace ETicaret.Data.Repos
         {
             this.context = context;
             values = context.Set<T>();  //context.Categories, context.Products ==values
+            context.Products.Include(x => x.Categories).Include(a => a.CategoryId);
         }
 
         
@@ -26,14 +27,33 @@ namespace ETicaret.Data.Repos
              await values.AddAsync(entity);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public IEnumerable<T> GetAll(string? includeProperties=null)
         {
-            return await values.ToListAsync();
+            IQueryable<T> query = values;
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includedProps in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includedProps);
+                }
+            }
+            return  query.ToList();
+
         }
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> expression)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> expression, string? includeProperties = null)
         {
-            return await values.FirstOrDefaultAsync(expression);
+
+            IQueryable<T> query = values;
+
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includedProps in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includedProps);
+                }
+            }
+            return await query.FirstOrDefaultAsync(expression);
         }
 
         public void RemoveRange(IEnumerable<T> entity)

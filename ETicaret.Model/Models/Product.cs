@@ -43,8 +43,8 @@ namespace ETicaret.Model.Models
         public double Price100 { get; set; }
 
         public int? CategoryId { get; set; }
-        [ValidateNever]
-        public virtual ICollection<Category?> Categories { get; set; }
+      
+        public virtual Category? Categories { get; set; }
         public string? ImageUrl { get; set; }
     }
 }

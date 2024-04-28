@@ -9,8 +9,8 @@ namespace ETicaret.Data.Repos
 {
     public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T> GetAsync (Expression<Func<T, bool>> expression);
+        IEnumerable<T> GetAll(string? includedProperties = null);
+        Task<T> GetAsync (Expression<Func<T, bool>> expression, string? includeProperties = null);
 
         Task AddAsync(T entity);
         void Update(T entity);
