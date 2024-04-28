@@ -7,6 +7,7 @@ namespace ETicaret.Net8.Areas.Customer.Controllers
     {
         public IActionResult Index()
         {
+            var ss=12;
             return View();
         }
     }
